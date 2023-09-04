@@ -4,11 +4,18 @@ const bookingSchema = new mongoose.Schema(
   {
     customerName: String,
     date: Date,
-    startTime: String,
-    endTime: String,
     roomId: {
       type: mongoose.Schema.Types.ObjectId,
+      name: String, 
+     bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Booking' }]
     },
+
+    status: {
+      type: String,
+      default: 'Pending', 
+      enum: ['Pending', 'Confirmed', 'Cancelled'],
+    },
+    
   },
   {
     timestamps: true,
@@ -18,4 +25,4 @@ const bookingSchema = new mongoose.Schema(
 // const Room = mongoose.model('Room', roomSchema);
 const Booking = mongoose.model("Booking", bookingSchema);
 
-module.exports = { Booking };
+module.exports = Booking;
